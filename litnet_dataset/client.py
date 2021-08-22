@@ -1,4 +1,6 @@
 from typing import Optional
+from urllib.parse import urljoin
+
 
 import requests
 
@@ -31,7 +33,7 @@ class AnonymousUser:
         # позволяет замещать параметры, которые есть в self.request_params
         request_params = {**self.request_params, **params}
 
-        data = self.session.get(f"{BASE_API_URL}{endpoint}", params=request_params)
+        data = self.session.get(urljoin(BASE_API_URL, endpoint), params=request_params)
         data.raise_for_status()
         return data.json()
 
